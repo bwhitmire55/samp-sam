@@ -4,6 +4,7 @@
 
 /**
     TO-DO:
+        Restructure data elements to remove monolithic enum
         Add map icon displaying missile position
  */
 
@@ -222,6 +223,7 @@ public OnPlayerEnterDynamicArea(playerid, STREAMER_TAG_AREA: areaid) {
                 gSAM_Data[idx][eSAM_Waiting] = true;
                 gSAM_Data[idx][eSAM_TargetID] = GetPlayerVehicleID(playerid);
                 gSAM_Data[idx][eSAM_Timer] = SetTimerEx("UpdateSAM", SAM_UPDATE_FREQUENCY, true, "i", idx);
+                CallLocalFunction("SAM_OnMissileFired", "ii", idx, gSAM_Data[idx][eSAM_TargetID]);
             }
         }
     }
@@ -248,6 +250,8 @@ public UpdateSAM(id) {
         DestroyDynamicObject(gSAM_Data[id][eSAM_MissileObject]);
         DestroyDynamicObject(gSAM_Data[id][eSAM_SmokeObject]);
         KillTimer(gSAM_Data[id][eSAM_Timer]);
+
+        CallLocalFunction("SAM_OnTargetHit", "ii", id, gSAM_Data[id][eSAM_TargetID]);
 
         gSAM_Data[id][eSAM_MissileObject] = 0;
         gSAM_Data[id][eSAM_SmokeObject] = 0;
@@ -329,3 +333,6 @@ public UpdateSAM(id) {
 #pragma tabsize 8
 */
 // -- 
+
+forward SAM_OnMissileFired(samid, vehicleid);
+forward SAM_OnTargetHit(samid, vehicleid);

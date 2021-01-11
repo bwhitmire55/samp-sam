@@ -118,6 +118,63 @@ RETURNS:
 Float: SAM_GetRange(id);
 ```
 
-## Todo
+## Callbacks
 
-*Add map icon indicating missile location
+```pawn
+/*
+PARAMS:
+    samid       - The SAM id that is firing
+    vehicleid   - The target vehicle of the missile
+*/
+public SAM_OnMissileFired(samid, vehicleid);
+```
+
+```pawn
+/*
+PARAMS:
+    samid       - The SAM id that hit their target
+    vehicleid   - The target vehicle of the missile that was hit
+*/
+public SAM_OnTargetHit(samid, vehicleid);
+```
+
+## Macros
+
+```pawn
+// Maximum number of concurrent SAM sites
+#if !defined SAM_MAX_SITES
+    #define SAM_MAX_SITES           (10)
+#endif
+```
+
+```pawn
+// Default speed a fired missile will travel
+#if !defined SAM_DEFAULT_SPEED
+    #define SAM_DEFAULT_SPEED       (50.0)
+#endif
+```
+
+```pawn
+// Default range a missile will be fired from
+#if !defined SAM_DEFAULT_RANGE 
+    #define SAM_DEFAULT_RANGE       (300.0)
+#endif
+```
+
+```pawn
+// Default range the missile will explode in relation to the target's position
+#if !defined SAM_DEFAULT_EXP_RADIUS
+    #define SAM_DEFAULT_EXP_RADIUS  (20.0)
+#endif
+```
+
+```pawn
+// Timer frequency to update the missile's position
+#if !defined SAM_UPDATE_FREQUENCY
+    #define SAM_UPDATE_FREQUENCY    (200)
+#endif
+```
+
+## Dependencies
+
+Streamer Plugin (https://www.github.com/samp-incognito/samp-streamer-plugin)
