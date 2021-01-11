@@ -26,6 +26,8 @@ And finally, maintaining your version number`:
 Happy Pawning!
 -->
 
+Create Surface-To-Air Missile sites with configurable settings
+
 ## Installation
 
 Simply install to your project:
@@ -37,27 +39,57 @@ sampctl package install bwhitmire55/samp-sam
 Include in your code and begin using the library:
 
 ```pawn
-#include <samp-sam>
+#include <sam>
 ```
 
-## Usage
+## Functions
 
-<!--
-Write your code documentation or examples here. If your library is documented in
-the source code, direct users there. If not, list your API and describe it well
-in this section. If your library is passive and has no API, simply omit this
-section.
--->
-
-## Testing
-
-<!--
-Depending on whether your package is tested via in-game "demo tests" or
-y_testing unit-tests, you should indicate to readers what to expect below here.
--->
-
-To test, simply run the package:
-
-```bash
-sampctl package run
+```pawn
+SAM_Create(
+    Float: x, Float: y, Float: z,           // position (x, y, z)
+    Float: rotX, Float: rotY, Float: rotZ,  // rotation
+    bool: createLauncher = true,            // create the launcher object
+    bool: createBase = true,                // create the base of launcher object
+    Float: speed = SAM_DEFAULT_SPEED,       // speed the missile will travel
+    Float: range = SAM_DEFAULT_RANGE,       // range to start firing at targets
+    Float: drawdistance = 0.00              // draw distance of objects
+);
 ```
+
+```pawn
+SAM_Destroy(id);
+```
+
+```pawn
+SAM_SetSpeed(id, Float: speed);
+```
+
+```pawn
+Float: SAM_GetSpeed(id);
+```
+
+```pawn
+SAM_SetRange(id, Float: range);
+```
+
+```pawn
+Float: SAM_GetRange(id);
+```
+
+## Callbacks
+
+```pawn
+public OnSAMFire(samid, targetid);
+```
+
+```pawn
+public OnSAMExplode(samid, reason);
+```
+
+## Todo
+
+*Add map icon indicating missile location
+
+*Add gang zone indicating SAM launch area
+
+*Add callbacks and default detonation time
